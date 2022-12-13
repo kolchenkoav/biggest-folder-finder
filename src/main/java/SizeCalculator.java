@@ -19,6 +19,9 @@ public class SizeCalculator {
     // 24B, 234K, 36M, 34G, 42T
     // 235K => 235 * 1024 = 240640
     public static long getSizeFromHumanReadable(String size) {
+        if (size.substring(0, 0) == "0") {
+            return 0;
+        }
         HashMap<Character, Integer> char2multipliers = getMultipliers();
         char sizeFactor = size
                 .replaceAll("[0-9\\s+]+", "")

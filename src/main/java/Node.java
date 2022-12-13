@@ -42,24 +42,16 @@ public class Node {
 
     @Override
     public String toString() {
-//        return "Node{" +
-//                "folder=" + folder +
-//                ", children=" + children +
-//                ", size=" + size +
-//                '}';
+        if (Main.sizeLimit > getSize()) { return ""; }
+
         StringBuilder builder = new StringBuilder();
         String size = SizeCalculator.getHumanReadableSize(getSize());
         builder.append(folder.getName() + " - " + size + "\n");
         for (Node child : children) {
-            builder.append(setSpaces(getLevel()) + child.toString());
+            if (Main.sizeLimit <= child.getSize()) {
+                builder.append("  ".repeat(getLevel() + 1) + child.toString());
+            }
         }
         return builder.toString();
-    }
-    private String setSpaces(int level) {
-        String value = "  ";
-        for (int i = 0; i < level; i++) {
-            value += "  ";
-        }
-        return value;
     }
 }
