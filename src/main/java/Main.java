@@ -5,7 +5,11 @@ import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
 public class Main {
+    private  static final char[] sizeMultipliers = {'B', 'K', 'M', 'G', 'T'};
     public static void main(String[] args) {
+        System.out.println(getHumanReadableSize(240640));
+        System.exit(0);
+
         String folderPath = "E:\\Records";
         File file = new File(folderPath);
 
@@ -47,14 +51,15 @@ public class Main {
     }
 
     public static String getHumanReadableSize(long size) {
-        long x = size;
-        String[] as = {"B", "Kb", "Mb", "Gb", "Tb"};
-        int ind = 0;
-        while (Long.toString(x).length() > 4) {
-            x /= 1024;
-            ind++;
+        for (int i = 0; i < sizeMultipliers.length; i++) {
+            double value = size / Math.pow(1024, i);
+            if (value < 1024) {
+                return Math.round(value) + " " +
+                        sizeMultipliers[i] +
+                        (i > 0 ? "b" : "");
+            }
         }
-        return x + " " + as[ind];
+        return "Very big...";
     }
 
     // 24B, 234Kb, 36Mb, 34Gb, 42Tb
@@ -71,10 +76,9 @@ public class Main {
     }
 
     private static HashMap<Character, Integer> getMultipliers() {
-        char[] multipliers = {'B', 'K', 'M', 'G', 'T'};
         HashMap<Character, Integer> char2multipliers = new HashMap<>();
         int i = 0;
-        for (char multiplier : multipliers) {
+        for (char multiplier : sizeMultipliers) {
             char2multipliers.put(multiplier, (int) Math.pow(1024, i));
             i++;
         }
