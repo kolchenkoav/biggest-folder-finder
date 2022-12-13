@@ -61,18 +61,23 @@ public class Main {
     // 24B, 234K, 36M, 34G, 42T
     // 235K => 235 * 1024 = 240640
     public static long getSizeFromHumanReadable(String size) {
-        String sPost = size.replaceAll("[0-9]*", "");                       // оставляем символы
-        String sInt = size.replaceAll("[^0-9]*", "").trim();                // число
-        int newSize = Integer.parseInt(sInt);
+        HashMap<Character, Integer> char2multipliers = getMultipliers();
+        char sizeFactor = size
+                .replaceAll("[0-9\\s+]+", "")
+                .charAt(0);
+        int multiplier = char2multipliers.get(sizeFactor);
+        long length = Long.parseLong(size.replaceAll("[^0-9]", ""));
+        return length * multiplier;
+    }
 
-        long value = switch (sPost) {
-            case "B" -> (long) newSize;
-            case "K", "Kb" -> (long) newSize * 1024;
-            case "M", "Mb" -> newSize * (long) Math.pow(1024, 2);
-            case "G", "Gb" -> newSize * (long) Math.pow(1024, 3);
-            case "T", "Tb" -> newSize * (long) Math.pow(1024, 4);
-            default -> 0;
-        };
-        return value;
+    private static HashMap<Character, Integer> getMultipliers() {
+        char[] multipliers = {'B', 'K', 'M', 'G', 'T'};
+        HashMap<Character, Integer> char2multipliers = new HashMap<>();
+        int i = 0;
+        for (char multiplier : multipliers) {
+            char2multipliers.put(multiplier, (int) Math.pow(1024, i));
+            i++;
+        }
+        return char2multipliers;
     }
 }
