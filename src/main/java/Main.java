@@ -6,11 +6,12 @@ public class Main {
     public static void main(String[] args) {
         String folderPath;
         if (args.length != 4) {
-            folderPath = "E:\\Downloads";
+            folderPath = "E:/Downloads";
             sizeLimit = SizeCalculator.getSizeFromHumanReadable("300Mb");
         } else {
-            folderPath = args[1];
-            sizeLimit = SizeCalculator.getSizeFromHumanReadable(args[3]);
+            ParametersBack pb = new ParametersBack(args);
+            folderPath = pb.getPath();
+            sizeLimit = pb.getLimit();
         }
 
         File file = new File(folderPath);
@@ -21,13 +22,17 @@ public class Main {
         ForkJoinPool pool = new ForkJoinPool();
         pool.invoke(calculator);
 
-
-        System.out.println("=============================================");
+        printResult(start, folderPath, root);
+    }
+    private static void printResult(long start, String folderPath, Node root) {
+        System.out.println("===========================================================================");
         System.out.println("Time :  " + (System.currentTimeMillis()-start) + " мс");
         System.out.println("Path :  " + folderPath);
         System.out.println("Limit > then " + SizeCalculator.getHumanReadableSize(sizeLimit));
-        System.out.println("BiggestFolderFinder.jar -d E:\\Records -l 500Mb");
-        System.out.println("=============================================");
+        System.out.println();
+        System.out.println("parameters : -d <pathForFolder> -l <Limit>   (b, Kb, Mb, Gb, Tb)");
+        System.out.println("For example: java -jar BiggestFolderFinder.jar -d E:/Downloads -l 200mb");
+        System.out.println("===========================================================================");
         System.out.println(root);
     }
 }
