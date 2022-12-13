@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
@@ -26,8 +27,8 @@ public class Main {
         //printSizeFolder(sizeFolder);
         System.out.println(getHumanReadableSize(sizeFolder));
 
-//        System.out.println(getSizeFromHumanReadable("235K"));
-//        System.out.println(getSizeFromHumanReadable("42Tb"));
+        System.out.println(getSizeFromHumanReadable("235K"));
+        System.out.println(getSizeFromHumanReadable("42Tb"));
 
     }
 
