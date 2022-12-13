@@ -21,18 +21,6 @@ public class Main {
         return sum;
     }
     public static void printSizeFolder(long sizeFolder) {
-        System.out.println(sizeFolder + " bytes");              // 118 MB (124426484 bytes)
-        System.out.println(sizeFolder/1024 + " kb");            // 118 MB (124426484 bytes)
-        System.out.println((sizeFolder/1024)/1024 + " MB");     // 118 MB (124426484 bytes)
-        System.out.println((((double) sizeFolder/1024)/1024)/1024 + " GB");     // 118 MB (124426484 bytes)
+        System.out.println(sizeFolder + " bytes");
     }
 }
-
-
-//        System.out.println(file.length());
-//        Set keys = System.getProperties().keySet();
-//        for(Object key : keys) {
-//            System.out.println(key);
-//        }
-//        System.out.println(System.getProperties().get("user.dir"));
-//        System.out.println(System.getProperties().get("user.home"));
